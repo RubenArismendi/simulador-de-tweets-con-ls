@@ -9,6 +9,10 @@ let tweets = [];
 eventListener()
 function eventListener(){
     formulario.addEventListener('submit',agregarTweet)
+    document.addEventListener('DOMContentLoaded',()=>{
+        tweets=JSON.parse(localStorage.getItem('tweets'))
+        crearHTML()
+    })
 }
 
 function agregarTweet(e){
@@ -86,6 +90,7 @@ function crearHTML(){
             listaTweets.appendChild(li)
         })
     }
+    sincronizarStorage()
 }
 
 function limpiarHTML(){
@@ -97,4 +102,10 @@ function limpiarHTML(){
 function borrarTweet(id){
     tweets = tweets.filter(tweets=> tweets.id !== id)
     crearHTML()
+}
+
+//agregar los tweets al localStorage
+
+function sincronizarStorage(){
+    localStorage.setItem('tweets',JSON.stringify(tweets))
 }
